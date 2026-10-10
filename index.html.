@@ -1,0 +1,141 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="theme-color" content="#146c43">
+<title>KetoStores — Shop from trusted sellers</title>
+<style>
+:root{--green:#146c43;--green2:#e9f6ee;--ink:#17231c;--muted:#66736a;--line:#e5ebe6;--bg:#f7faf7;--white:#fff;--orange:#ffb454}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,-apple-system,Segoe UI,Roboto,Arial,sans-serif;color:var(--ink);background:var(--bg)}
+a{color:inherit}button,input,select,textarea{font:inherit}button{cursor:pointer}
+.topbar{background:#103d2a;color:#fff;text-align:center;padding:9px 14px;font-size:13px}
+header{background:#fff;border-bottom:1px solid var(--line);position:sticky;top:0;z-index:5}
+.nav{max-width:1180px;margin:auto;padding:16px 20px;display:flex;gap:18px;align-items:center}
+.logo{font-weight:900;font-size:24px;letter-spacing:-1px;color:var(--green);white-space:nowrap}.logo span{color:var(--ink)}
+.search{display:flex;flex:1;min-width:80px;background:#f4f7f4;border:1px solid var(--line);border-radius:12px;overflow:hidden}
+.search input{border:0;background:transparent;padding:12px;width:100%;outline:0;min-width:0}.search button{border:0;background:var(--green);color:#fff;padding:0 17px}
+.navbtn{border:1px solid var(--line);background:#fff;border-radius:11px;padding:10px 13px;white-space:nowrap}
+main{max-width:1180px;margin:auto;padding:24px 20px 60px}
+.hero{background:linear-gradient(120deg,#103d2a,#19784b);border-radius:24px;color:#fff;padding:42px;display:grid;grid-template-columns:1.25fr .75fr;gap:20px;align-items:center;overflow:hidden}
+.eyebrow{font-size:12px;letter-spacing:1.5px;text-transform:uppercase;font-weight:800;color:#b9f0cf}
+.hero h1{font-size:clamp(34px,5vw,56px);line-height:1.04;letter-spacing:-1.8px;margin:13px 0}
+.hero p{max-width:520px;line-height:1.7;color:#e2f2e7}
+.primary{border:0;background:#fff;color:var(--green);font-weight:800;border-radius:12px;padding:13px 18px}
+.secondary{border:1px solid #b8dfc6;background:transparent;color:#fff;font-weight:700;border-radius:12px;padding:12px 17px;margin-left:8px}
+.hero-art{display:grid;grid-template-columns:1fr 1fr;gap:12px;transform:rotate(3deg)}
+.art-card{min-height:130px;border-radius:20px;display:flex;align-items:center;justify-content:center;font-size:54px;background:#e8f7ec}.art-card:nth-child(2){background:#fff0dc}.art-card:nth-child(3){background:#e9e6ff}.art-card:nth-child(4){background:#dceff8}
+.trust{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin:18px 0 30px}
+.trust div{background:#fff;border:1px solid var(--line);border-radius:14px;padding:15px;display:flex;gap:10px;align-items:center;font-size:14px}.trust b{display:block}
+.sectionhead{display:flex;justify-content:space-between;gap:12px;align-items:end;margin:30px 0 16px}.sectionhead h2{margin:0;font-size:25px;letter-spacing:-.6px}.sectionhead p{margin:5px 0 0;color:var(--muted);font-size:14px}
+.categories{display:flex;gap:9px;flex-wrap:wrap;margin-bottom:20px}.chip{border:1px solid var(--line);background:#fff;padding:9px 14px;border-radius:999px;color:#435148}.chip.active{background:var(--green);color:#fff;border-color:var(--green)}
+.grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+.product{background:#fff;border:1px solid var(--line);border-radius:17px;overflow:hidden;display:flex;flex-direction:column;min-width:0}
+.product-art{height:155px;display:flex;align-items:center;justify-content:center;font-size:64px;background:#eef6f0;position:relative}.product-art .tag{position:absolute;top:10px;left:10px;font-size:11px;background:#fff;border-radius:7px;padding:5px 8px;font-weight:800}
+.product-body{padding:14px;display:flex;flex-direction:column;gap:7px;flex:1}.product h3{font-size:15px;margin:0;line-height:1.35}.seller{font-size:12px;color:var(--muted)}.price{font-weight:900;font-size:19px;color:var(--green)}.product-actions{display:flex;gap:8px;margin-top:auto;padding-top:7px}.product-actions button{flex:1;border-radius:9px;padding:9px 7px;font-size:12px;font-weight:800}.add{border:0;background:var(--green);color:#fff}.details{border:1px solid var(--line);background:#fff}
+.empty{padding:35px;text-align:center;color:var(--muted);grid-column:1/-1}
+.seller-banner{margin-top:36px;background:#fff;border:1px solid var(--line);border-radius:22px;padding:28px;display:grid;grid-template-columns:1fr auto;gap:18px;align-items:center}
+.seller-banner h2{margin:0 0 8px}.seller-banner p{margin:0;color:var(--muted);line-height:1.6}.greenbtn{background:var(--green);color:#fff;border:0;border-radius:11px;padding:13px 17px;font-weight:800}
+footer{background:#103d2a;color:#d7e9dd;padding:28px 20px}.foot{max-width:1180px;margin:auto;display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}.foot strong{font-size:20px;color:#fff}.foot small{color:#b8d1c0}
+.modalback{position:fixed;inset:0;background:#0b2118a8;z-index:10;display:none;align-items:center;justify-content:center;padding:18px}.modalback.show{display:flex}.modal{width:min(560px,100%);max-height:90vh;overflow:auto;background:#fff;border-radius:20px;padding:23px}.modalhead{display:flex;justify-content:space-between;align-items:center;gap:12px}.modalhead h2{margin:0}.close{border:0;background:#eef3ef;border-radius:10px;padding:8px 12px}.formgrid{display:grid;grid-template-columns:1fr 1fr;gap:13px;margin-top:18px}.field{display:flex;flex-direction:column;gap:6px}.field.full{grid-column:1/-1}.field label{font-size:13px;font-weight:700}.field input,.field select,.field textarea{border:1px solid #dce5de;border-radius:10px;padding:11px;background:#fff;width:100%}.note{font-size:12px;line-height:1.55;color:var(--muted);margin-top:13px}.toast{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);background:#103d2a;color:#fff;padding:12px 18px;border-radius:12px;display:none;z-index:20;max-width:90%;text-align:center}.toast.show{display:block}
+@media(max-width:850px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}.hero{padding:28px;grid-template-columns:1fr}.hero-art{display:none}.nav{flex-wrap:wrap}.search{order:3;flex-basis:100%}.trust{grid-template-columns:1fr}.seller-banner{grid-template-columns:1fr}.seller-banner button{width:100%}}
+@media(max-width:480px){main{padding:16px 12px 40px}.nav{padding:12px}.logo{font-size:21px}.navbtn{padding:9px}.hero{border-radius:18px;padding:25px 20px}.hero h1{font-size:37px}.secondary{margin:10px 0 0}.sectionhead h2{font-size:22px}.grid{gap:10px}.product-art{height:120px;font-size:48px}.product-body{padding:11px}.product h3{font-size:14px}.price{font-size:17px}.formgrid{grid-template-columns:1fr}.field.full{grid-column:auto}}
+</style>
+</head>
+<body>
+<div class="topbar">Discover local sellers • Shop in Nigerian naira • Built for buyers and sellers</div>
+<header>
+  <div class="nav">
+    <div class="logo">Keto<span>Stores</span></div>
+    <form class="search" id="searchForm"><input id="searchInput" placeholder="Search products, e.g. shoes, phone..." aria-label="Search products"><button type="submit">Search</button></form>
+    <button class="navbtn" id="sellTop">＋ Sell on KetoStores</button>
+    <button class="navbtn" id="cartBtn">🛒 Cart (<span id="cartCount">0</span>)</button>
+  </div>
+</header>
+<main>
+  <section class="hero">
+    <div>
+      <div class="eyebrow">A marketplace for everyone</div>
+      <h1>Good finds.<br>Great sellers.</h1>
+      <p>Shop fashion, gadgets, home essentials and more from independent sellers. Have products to sell? Start your seller journey with KetoStores.</p>
+      <button class="primary" id="shopNow">Explore products ↓</button>
+      <button class="secondary" id="sellHero">Become a seller</button>
+    </div>
+    <div class="hero-art" aria-hidden="true"><div class="art-card">👟</div><div class="art-card">🎧</div><div class="art-card">👜</div><div class="art-card">⌚</div></div>
+  </section>
+  <div class="trust">
+    <div>🔎 <span><b>Explore more</b>Products across categories</span></div>
+    <div>🏪 <span><b>Support sellers</b>Discover independent shops</span></div>
+    <div>📱 <span><b>Mobile friendly</b>Shop on any screen</span></div>
+  </div>
+  <section id="productsSection">
+    <div class="sectionhead"><div><h2>Explore products</h2><p>Sample listings for the KetoStores starter demo.</p></div><span id="resultCount" class="seller">8 products</span></div>
+    <div class="categories" id="categories">
+      <button class="chip active" data-cat="All">All products</button><button class="chip" data-cat="Fashion">Fashion</button><button class="chip" data-cat="Electronics">Electronics</button><button class="chip" data-cat="Home">Home</button><button class="chip" data-cat="Beauty">Beauty</button>
+    </div>
+    <div class="grid" id="productGrid"></div>
+  </section>
+  <section class="seller-banner">
+    <div><h2>Have something to sell?</h2><p>Join the KetoStores seller community. Submit your shop details and a sample product listing to get started.</p></div>
+    <button class="greenbtn" id="sellBottom">Start selling →</button>
+  </section>
+</main>
+<footer><div class="foot"><div><strong>KetoStores</strong><p>One marketplace. Many sellers.</p></div><div><b>Starter demo</b><p><small>Sample products only • No real payments are collected</small></p></div><div><small>© 2026 KetoStores. Replace demo contact details before launch.</small></div></div></footer>
+<div class="modalback" id="sellerModal" role="dialog" aria-modal="true" aria-labelledby="sellerTitle">
+  <div class="modal">
+    <div class="modalhead"><h2 id="sellerTitle">Become a seller</h2><button class="close" id="closeModal">Close ✕</button></div>
+    <p style="color:#66736a;line-height:1.6">This demo collects your details only in this browser session. It does not send or save them to a real seller account yet.</p>
+    <form id="sellerForm" class="formgrid">
+      <div class="field"><label for="sellerName">Your name</label><input id="sellerName" required placeholder="Full name"></div>
+      <div class="field"><label for="shopName">Shop name</label><input id="shopName" required placeholder="Your shop"></div>
+      <div class="field"><label for="sellerPhone">Phone / WhatsApp</label><input id="sellerPhone" required placeholder="e.g. 080..."></div>
+      <div class="field"><label for="sellerCategory">Main category</label><select id="sellerCategory"><option>Fashion</option><option>Electronics</option><option>Home</option><option>Beauty</option><option>Food</option><option>Other</option></select></div>
+      <div class="field full"><label for="sampleProduct">First product and price (₦)</label><input id="sampleProduct" required placeholder="e.g. Canvas sneakers — ₦18,000"></div>
+      <div class="field full"><label for="sellerNote">Short shop description</label><textarea id="sellerNote" rows="3" placeholder="What do you sell?"></textarea></div>
+      <div class="field full"><button class="greenbtn" type="submit">Preview seller submission</button></div>
+    </form>
+    <p class="note">Next development step: connect this form to a secure database and add admin approval before accepting real sellers.</p>
+  </div>
+</div>
+<div class="modalback" id="cartModal" role="dialog" aria-modal="true" aria-labelledby="cartTitle">
+  <div class="modal"><div class="modalhead"><h2 id="cartTitle">Your cart</h2><button class="close" id="closeCart">Close ✕</button></div><div id="cartItems" style="margin-top:18px"></div><p class="note">This is a demo cart. Checkout and payments are not connected yet.</p></div>
+</div>
+<div class="toast" id="toast"></div>
+<script>
+const products=[
+{id:1,name:"Everyday Canvas Sneakers",category:"Fashion",price:18000,seller:"Lola's Finds",emoji:"👟",bg:"#e9f4ec",tag:"Popular"},
+{id:2,name:"Wireless Headphones",category:"Electronics",price:24500,seller:"Tech Corner NG",emoji:"🎧",bg:"#e8efff",tag:"Featured"},
+{id:3,name:"Classic Everyday Handbag",category:"Fashion",price:22000,seller:"Ada Style Hub",emoji:"👜",bg:"#fff0df",tag:"New"},
+{id:4,name:"Minimal Wristwatch",category:"Fashion",price:15500,seller:"Time & Things",emoji:"⌚",bg:"#f0eaff",tag:""},
+{id:5,name:"Desk Lamp",category:"Home",price:12500,seller:"HomeNest",emoji:"💡",bg:"#fff4d9",tag:""},
+{id:6,name:"Bluetooth Speaker",category:"Electronics",price:19500,seller:"Tech Corner NG",emoji:"🔊",bg:"#e1f3f8",tag:""},
+{id:7,name:"Skincare Starter Set",category:"Beauty",price:14000,seller:"Glow Basket",emoji:"🧴",bg:"#ffeaf0",tag:""},
+{id:8,name:"Travel Backpack",category:"Fashion",price:21000,seller:"Lola's Finds",emoji:"🎒",bg:"#e7eee8",tag:""}
+];
+let activeCategory="All",query="",cart=[];
+const money=n=>"₦"+n.toLocaleString("en-NG");
+const grid=document.getElementById("productGrid");
+function renderProducts(){
+ const shown=products.filter(p=>(activeCategory==="All"||p.category===activeCategory)&&(p.name+" "+p.category+" "+p.seller).toLowerCase().includes(query.toLowerCase()));
+ document.getElementById("resultCount").textContent=shown.length+" product"+(shown.length===1?"":"s");
+ grid.innerHTML=shown.length?shown.map(p=>`<article class="product"><div class="product-art" style="background:${p.bg}">${p.tag?`<span class="tag">${p.tag}</span>`:""}<span>${p.emoji}</span></div><div class="product-body"><div class="seller">${p.category} · Sample listing</div><h3>${p.name}</h3><div class="seller">Sold by ${p.seller}</div><div class="price">${money(p.price)}</div><div class="product-actions"><button class="add" onclick="addToCart(${p.id})">Add to cart</button><button class="details" onclick="showProduct(${p.id})">Details</button></div></div></article>`).join(""):`<div class="empty">No products found. Try another search or category.</div>`;
+}
+function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600)}
+function addToCart(id){const p=products.find(x=>x.id===id);cart.push(p);document.getElementById("cartCount").textContent=cart.length;toast(p.name+" added to demo cart");}
+function showProduct(id){const p=products.find(x=>x.id===id);toast(p.name+" — "+money(p.price)+" · Seller: "+p.seller)}
+function openSeller(){document.getElementById("sellerModal").classList.add("show")}
+function closeSeller(){document.getElementById("sellerModal").classList.remove("show")}
+function openCart(){const c=document.getElementById("cartItems");if(!cart.length)c.innerHTML='<p>Your cart is empty. Add a product to try it out.</p>';else c.innerHTML=cart.map((p,i)=>`<div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #e5ebe6"><span>${p.emoji} ${p.name}</span><b>${money(p.price)}</b></div>`).join("")+`<h3>Total: ${money(cart.reduce((s,p)=>s+p.price,0))}</h3><button class="greenbtn" onclick="toast('Demo only — checkout is not connected yet')">Continue to checkout</button>`;document.getElementById("cartModal").classList.add("show")}
+document.getElementById("searchForm").addEventListener("submit",e=>{e.preventDefault();query=document.getElementById("searchInput").value.trim();renderProducts()});
+document.getElementById("categories").addEventListener("click",e=>{const b=e.target.closest("button[data-cat]");if(!b)return;activeCategory=b.dataset.cat;document.querySelectorAll(".chip").forEach(x=>x.classList.toggle("active",x===b));renderProducts()});
+["sellTop","sellHero","sellBottom"].forEach(id=>document.getElementById(id).addEventListener("click",openSeller));
+document.getElementById("closeModal").addEventListener("click",closeSeller);
+document.getElementById("cartBtn").addEventListener("click",openCart);
+document.getElementById("closeCart").addEventListener("click",()=>document.getElementById("cartModal").classList.remove("show"));
+document.getElementById("shopNow").addEventListener("click",()=>document.getElementById("productsSection").scrollIntoView({behavior:"smooth"}));
+document.querySelectorAll(".modalback").forEach(m=>m.addEventListener("click",e=>{if(e.target===m)m.classList.remove("show")}));
+document.getElementById("sellerForm").addEventListener("submit",e=>{e.preventDefault();const data={name:document.getElementById("sellerName").value,shop:document.getElementById("shopName").value,phone:document.getElementById("sellerPhone").value,category:document.getElementById("sellerCategory").value,product:document.getElementById("sampleProduct").value,description:document.getElementById("sellerNote").value};closeSeller();toast("Seller submission preview created — no data was sent.");alert("KETOSTORES — SELLER SUBMISSION PREVIEW\n\nName: "+data.name+"\nShop: "+data.shop+"\nPhone: "+data.phone+"\nCategory: "+data.category+"\nProduct: "+data.product+"\nDescription: "+(data.description||"Not provided")+"\n\nDemo only: details have not been sent or saved to an account.");e.target.reset()});
+renderProducts();
+</script>
+</body>
+</html>
