@@ -122,7 +122,37 @@ function renderProducts(){
 }
 function toast(msg){const t=document.getElementById("toast");t.textContent=msg;t.classList.add("show");setTimeout(()=>t.classList.remove("show"),2600)}
 function addToCart(id){const p=products.find(x=>x.id===id);cart.push(p);document.getElementById("cartCount").textContent=cart.length;toast(p.name+" added to demo cart");}
-function showProduct(id){const p=products.find(x=>x.id===id);toast(p.name+" — "+money(p.price)+" · Seller: "+p.seller)}
+function showProduct(id) {
+  const p = products.find(x => x.id === id);
+  const button = document.querySelector(
+    `.product button.details[onclick="showProduct(${id})"]`
+  );
+  const card = button?.closest(".product");
+  if (!p || !card) return;
+  const existing = card.querySelector(".purchase-menu");
+  if (existing) {
+    existing.remove();
+    return;
+  }
+  document.querySelectorAll(".purchase-menu").forEach(menu => {
+    menu.remove();
+  });
+  const menu = document.createElement("div");
+  menu.className = "purchase-menu";
+  menu.style.cssText =
+    "margin-top:10px;padding:12px;border:1px solid #dce5de;border-radius:10px;background:#f7fbf8";
+  menu.innerHTML = `
+    <strong>${p.name}</strong>
+    <p style="margin:6px 0 10px">
+      Price: ${money(p.price)}
+    </p>
+    <button class="greenbtn" type="button"
+      onclick="addToCart(${p.id})">
+      Purchase item
+    </button>
+  `;
+  card.querySelector(".product-body").appendChild(menu);
+}
 function openSeller(){document.getElementById("sellerModal").classList.add("show")}
 function closeSeller(){document.getElementById("sellerModal").classList.remove("show")}
 function openCart(){const c=document.getElementById("cartItems");if(!cart.length)c.innerHTML='<p>Your cart is empty. Add a product to try it out.</p>';else c.innerHTML=cart.map((p,i)=>`<div style="display:flex;justify-content:space-between;gap:12px;padding:10px 0;border-bottom:1px solid #e5ebe6"><span>${p.emoji} ${p.name}</span><b>${money(p.price)}</b></div>`).join("")+`<h3>Total: ${money(cart.reduce((s,p)=>s+p.price,0))}</h3><button class="greenbtn" onclick="toast('Demo only — checkout is not connected yet')">Continue to checkout</button>`;document.getElementById("cartModal").classList.add("show")}
